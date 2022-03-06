@@ -13,7 +13,7 @@ namespace GradeBook.GradeBooks
 
         public override char GetLetterGrade(double averageGrade)
         {
-            if (Students.Count < 5)
+            if (!CheckIfStudentCountIsSufficent())
                 throw new InvalidOperationException();
 
             IOrderedEnumerable<Student> studentsDividedByGrade = 
@@ -32,6 +32,16 @@ namespace GradeBook.GradeBooks
 
             return 'F';
         }
+
+        public override  void CalculateStatistics()
+        {
+            if (!CheckIfStudentCountIsSufficent())
+                Console.WriteLine("Ranked grading requires at least 5 students.");
+            else
+                base.CalculateStatistics();
+        }
+
+        private bool CheckIfStudentCountIsSufficent() => Students.Count >= 5;
 
         private List<List<Student>> ChunkEvenly(List<Student> list)
         {
