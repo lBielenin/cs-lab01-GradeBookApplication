@@ -14,7 +14,7 @@ namespace GradeBook.GradeBooks
         public string Name { get; set; }
         public List<Student> Students { get; set; }
         public GradeBookType Type { get; set; }
-
+        protected static List<char> Grades = new List<char> { 'A', 'B', 'C', 'D', 'F' };
         public BaseGradeBook(string name)
         {
             Name = name;
