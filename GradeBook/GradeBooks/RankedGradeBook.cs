@@ -40,9 +40,9 @@ namespace GradeBook.GradeBooks
             int chunkSize = count / Grades.Count;
 
             return ordByGrade
-                .Select((val, i) => new { idx = i, Value = val })
-                .GroupBy(obj => obj.idx / chunkSize)
-                .Select(x => x.Select(v => v.Value).ToList())
+                .Select((val, i) => new { chunkNum = i / chunkSize, Value = val })
+                .GroupBy(obj => obj.chunkNum)
+                .Select(group => group.Select(v => v.Value).ToList())
                 .ToList();
         }
     }
