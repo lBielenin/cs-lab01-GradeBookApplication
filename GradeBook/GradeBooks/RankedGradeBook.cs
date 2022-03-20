@@ -41,6 +41,14 @@ namespace GradeBook.GradeBooks
                 base.CalculateStatistics();
         }
 
+        public override void CalculateStudentStatistics()
+        {
+            if (!CheckIfStudentCountIsSufficent())
+                Console.WriteLine("Ranked grading requires at least 5 students.");
+            else
+                base.CalculateStudentStatistics();
+        }
+
         private bool CheckIfStudentCountIsSufficent() => Students.Count >= 5;
 
         private List<List<Student>> ChunkEvenly(List<Student> list)
