@@ -43,9 +43,9 @@ namespace GradeBook.UserInterfaces
 
             var name = parts[1];
             var gradeBookType = parts[2];
-            var IsWeighted = parts[3];
+            var IsWeighted = bool.Parse(parts[3]);
 
-            BaseGradeBook gradeBook = CreateBookByInput(name, gradeBookType);
+            BaseGradeBook gradeBook = CreateBookByInput(name, gradeBookType, IsWeighted);
             if (gradeBook == null)
             {
                 Console.WriteLine($"{gradeBookType} is not a supported type of gradebook, please try again");
@@ -57,12 +57,12 @@ namespace GradeBook.UserInterfaces
             GradeBookUserInterface.CommandLoop(gradeBook);
         }
         
-        private static BaseGradeBook CreateBookByInput(string name, string input)
+        private static BaseGradeBook CreateBookByInput(string name, string input, bool isWeighted)
         {
             return input switch
             {
-                BookTypeNames.STANDARD => new StandardGradeBook(name),
-                BookTypeNames.RANKED => new RankedGradeBook(name),
+                BookTypeNames.STANDARD => new StandardGradeBook(name, isWeighted),
+                BookTypeNames.RANKED => new RankedGradeBook(name, isWeighted),
                 _ => null
             };
         }
