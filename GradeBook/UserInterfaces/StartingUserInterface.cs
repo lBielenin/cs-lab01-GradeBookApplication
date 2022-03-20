@@ -44,8 +44,7 @@ namespace GradeBook.UserInterfaces
             var name = parts[1];
             var gradeBookType = parts[2];
 
-            BaseGradeBook gradeBook = new BaseGradeBook(name);
-                CreateBookByInput(name, gradeBookType);
+            BaseGradeBook gradeBook = CreateBookByInput(name, gradeBookType);
             if (gradeBook == null)
             {
                 Console.WriteLine($"{gradeBookType} is not a supported type of gradebook, please try again");
@@ -55,6 +54,16 @@ namespace GradeBook.UserInterfaces
 
             Console.WriteLine("Created gradebook {0}.", name);
             GradeBookUserInterface.CommandLoop(gradeBook);
+        }
+        
+        private static BaseGradeBook CreateBookByInput(string name, string input)
+        {
+            return input switch
+            {
+                BookTypeNames.STANDARD => new StandardGradeBook(name),
+                BookTypeNames.RANKED => new RankedGradeBook(name),
+                _ => null
+            };
         }
 
         public static void LoadCommand(string command)
